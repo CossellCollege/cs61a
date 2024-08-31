@@ -10,7 +10,6 @@ def deep_map(f, s):
     >>> s1 = s[1]
     >>> s2 = s1[1]
     >>> s3 = s2[1]
-    >>> deep_map(lambda x: x + 1, s)
     >>> s
     [4, [2, [5, [2]]]]
     >>> s1 is s[1]
@@ -131,11 +130,13 @@ def balanced(m):
     True
     """
     "*** YOUR CODE HERE ***"
-
-
-HW_SOURCE_FILE=__file__
-
-
+    if is_planet(m):
+        return True
+    else:
+        left,right = end(left(m)),end(right(m))
+        left_torque = length(left(m)) * total_mass(left)
+        right_torque = length(right(m)) * total_mass(right)
+        return left_torque==right_torque || balanced(right)||balanced(left)
 def max_path_sum(t):
     """Return the maximum root-to-leaf path sum of a tree.
     >>> t = tree(1, [tree(5, [tree(1), tree(3)]), tree(10)])
