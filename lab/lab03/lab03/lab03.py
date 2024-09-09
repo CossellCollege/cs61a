@@ -15,6 +15,8 @@ def print_if(s, f):
     """
     for x in s:
         "*** YOUR CODE HERE ***"
+        if f(x) == True:
+            print(x)
 
 
 def close(s, k):
