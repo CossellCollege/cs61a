@@ -14,8 +14,7 @@ def print_if(s, f):
     None
     """
     for x in s:
-        "*** YOUR CODE HERE ***"
-        if f(x) == True:
+        if f(x):
             print(x)
 
 
@@ -34,8 +33,7 @@ def close(s, k):
     """
     count = 0
     for i in range(len(s)):  # Use a range to loop over indices
-        "*** YOUR CODE HERE ***"
-        if abs(s[i]-i)<=k:
+        if abs(i - s[i]) <= k:
             count += 1
     return count
 
@@ -51,7 +49,7 @@ def close_list(s, k):
     >>> close_list(t, 2)  # 2, 3, 4, and 5 are all within 2 of their index
     [2, 4, 3, 5]
     """
-    return [s[i] for i in range(len(s)) if abs(s[i]-i)<=k]
+    return [s[i] for i in range(len(s)) if abs(i - s[i]) <= k]
 
 
 from math import sqrt
@@ -67,7 +65,7 @@ def squares(s):
     >>> squares(seq)
     []
     """
-    return [ round(n ** 0.5) for n in s if n==round(n ** 0.5) ** 2]
+    return [round(n ** 0.5) for n in s if n == round(n ** 0.5) ** 2]
 
 
 def double_eights(n):
@@ -91,13 +89,29 @@ def double_eights(n):
     >>> check(LAB_SOURCE_FILE, 'double_eights', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
-    if n%10 == 8 and n//10%10 == 8:
+    last, second_last = n % 10, n // 10 % 10
+    if last == 8 and second_last == 8:
         return True
-    elif n<100:
+    elif n < 100:
         return False
-    else:
-        return double_eights(n//10)
+    return double_eights(n // 10)
+
+    # Alternate solution
+    last, second_last = n % 10, n // 10 % 10
+    if n < 10:
+        return False
+    return (last == 8 and second_last == 8) or double_eights(n // 10)
+
+    # Alternate solution with helper function:
+    def helper(num, prev_eight):
+        if num == 0:
+            return False
+        if num % 10 == 8:
+            if prev_eight:
+                return True
+            return helper(num // 10, True)
+        return helper(num // 10, False)
+    return helper(n, False)
 
 
 def make_onion(f, g):
@@ -130,6 +144,6 @@ def make_onion(f, g):
         elif x == y:
             return True
         else:
-            return can_reach(f(x), y , limit - 1) or can_reach(g(x),y, limit - 1)
+            return can_reach(f(x), y, limit - 1) or can_reach(g(x), y, limit - 1)
     return can_reach
 
