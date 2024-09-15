@@ -7,7 +7,7 @@ def divide(quotients, divisors):
     >>> divide(range(1, 5), range(20, 25))
     {1: [20, 21, 22, 23, 24], 2: [20, 22, 24], 3: [21, 24], 4: [20, 24]}
     """
-    return {q:[d for d in divisors if d % q == 0] for q in quotients}
+    return {q: [d for d in divisors if d % q == 0] for q in quotients}
 
 
 def buy(required_fruits, prices, total_amount):
@@ -25,13 +25,16 @@ def buy(required_fruits, prices, total_amount):
     [9 apples][1 kiwi]
     """
     def add(fruits, amount, cart):
+       #print(f"当前处理的水果: {fruits}, 剩余预算: {amount}, 当前购物车: {cart}")
         if fruits == [] and amount == 0:
             print(cart)
         elif fruits and amount > 0:
             fruit = fruits[0]
-            price = ____
-            for k in ____:
-                add(____, ____, ____)
+            #print(f"当前的水果是: {fruit}")
+            price = prices[fruit]
+            for k in range(1,amount//price + 1):
+                #print(f"尝试购买 {k} 个 {fruit}")
+                add(fruits[1:],amount-price*k,cart+display(fruit,k))
     add(required_fruits, total_amount, '')
 
 
@@ -64,6 +67,14 @@ def distance(city_a, city_b):
     5.0
     """
     "*** YOUR CODE HERE ***"
+    dx_a = get_lat(city_a)
+    dx_b = get_lat(city_b)
+
+    dy_a = get_lon(city_a)
+    dy_b = get_lon(city_b)
+
+    return sqrt((dx_a-dx_b)**2+(dy_a-dy_b)**2)
+
 
 def closer_city(lat, lon, city_a, city_b):
     """
@@ -81,8 +92,18 @@ def closer_city(lat, lon, city_a, city_b):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+    index = make_city('Index',lat,lon)
+    a=distance(index,city_a)
+    b=distance(index,city_b)
+
+    if (a>=b):
+        return get_name(city_b)
+    else:
+        return get_name(city_a)
+
 
 def check_city_abstraction():
+
     """
     There's nothing for you to do for this function, it's just here for the extra doctest
     >>> change_abstraction(True)
