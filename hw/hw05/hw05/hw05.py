@@ -13,7 +13,7 @@ def hailstone(n):
     if n == 1:
         yield from hailstone(n)
     elif n % 2 == 0:
-        yield form hailstone(n//2)
+        yield from hailstone(n//2)
     else:
         yield from hailstone(n * 3 + 1)
 
@@ -31,6 +31,18 @@ def merge(a, b):
     [2, 3, 5, 7, 8, 9, 11, 13, 14, 15]
     """
     "*** YOUR CODE HERE ***"
+    first_a,first_b = next(a),next(b)
+    while True:
+        if first_a == first_b:
+            yield first_a
+            first_a,first_b = next(a),next(b)
+        elif first_a < first_b:
+            yield first_a
+            first_a = next(a)
+        else:
+            yield first_b
+            first_b = next(b)
+
 
 
 def yield_paths(t, value):
